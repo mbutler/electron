@@ -7,5 +7,19 @@
             <label>Select Video</label>
             <input type="file" accept="video/*" />
         </div>
+        <button type="submit">Get Info</button>
     </form>
+    <script>
+        const electron = require('electron')
+        const { ipcRenderer } = electron
+
+        document.querySelector('form').addEventListener('submit', (event) => {
+            event.preventDefault()
+            const { path } = document.querySelector('input').files[0]
+
+            // video:submit event ould be named anything. using backbone convention
+            // ipcRenderer.send to send messages to electron
+            ipcRenderer.send('video:submit', path)
+        })
+    </script>
 </body>
